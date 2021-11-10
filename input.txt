@@ -1,0 +1,5 @@
+ INPUT is_a_cat (lucy)
+ INPUT is_a_cat (garfield)
+ INPUT are_friends (alex, sam)
+ INPUT is_a_cat (bowler_cat)
+ QUERY is_a_cat (lucy)
