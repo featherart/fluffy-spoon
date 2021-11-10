@@ -12,21 +12,17 @@ defmodule DataStore do
   """
   def input(question, fact) do
     Agent.update(__MODULE__, fn(state) ->
-      IO.inspect(state, label: "state")
-      new_state = List.push(state, %{question => fact})
+      new_state = [{String.to_atom(question), fact} | state]
       IO.inspect(new_state, label: "new state$$$$$$")
     end)
   end
-
-  # How to handle are_friends (x, y)
 
   @doc """
   Returns the fact associated with a question
   """
   def query(question) do
     Agent.get(__MODULE__, fn(state) ->
-      #Map.get(state, question)
-      List.find(state, question)
+      Keyword.get_values(state, String.to_atom(question))
     end)
   end
 

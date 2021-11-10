@@ -1,25 +1,25 @@
 defmodule DataStoreTest do
   use ExUnit.Case, async: true
 
-  # setup do
-  #   DataStore.start_link()
-  # end
+  setup do
+    pid = DataStore.start_link()
+    %{pid: pid}
+  end
   
   test "inputs a fact" do
-    DataStore.start_link()   
-    assert DataStore.query("lucy") == nil
+    assert DataStore.query("lucy") == []
 
     DataStore.input("is_a_cat", "lucy")
-    assert DataStore.query("is_a_cat") == "lucy"
+    DataStore.input("is_a_cat", "lulu")
+    assert DataStore.query("is_a_cat") == ["lulu", "lucy"]
   end
 
   test "handles a basic query" do
-    DataStore.start_link()
-    assert DataStore.query("is_a_cat") == nil
+    assert DataStore.query("is_a_cat") == []
 
     DataStore.input("is_a_cat", "lucy")
-    assert DataStore.query("is_a_cat") == "lucy"
+    assert DataStore.query("is_a_cat") == ["lucy"]
     DataStore.input("is_a_bat", "francis")
-    assert DataStore.query("is_a_cat") == "francis"
+    assert DataStore.query("is_a_bat") == ["francis"]
   end
 end
