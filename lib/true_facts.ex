@@ -18,10 +18,6 @@ defmodule TrueFacts do
 
   """
 
-  def start do
-    DataStore.start_link
-  end
-
   def parse_input(str) do
     :ok
   end

@@ -5,7 +5,7 @@ defmodule DataStoreTest do
     pid = DataStore.start_link()
     %{pid: pid}
   end
-  
+
   test "inputs a fact" do
     assert DataStore.query("lucy") == []
 

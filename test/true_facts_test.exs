@@ -5,8 +5,4 @@ defmodule TrueFactsTest do
   test "parse_input/2 returns :ok tuple" do
     assert TrueFacts.parse_input("is_a_cat", "lucy") == {:ok, true}
   end
-
-  # test "parse_input/2 modifies state" do
-  #   assert TrueFacts.parse_input("is_a_cat", "lucy") == {:ok, true}
-  # end
 end
