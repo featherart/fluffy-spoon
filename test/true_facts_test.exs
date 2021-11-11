@@ -2,7 +2,12 @@ defmodule TrueFactsTest do
   use ExUnit.Case
   doctest TrueFacts
 
-  test "parse_input/2 returns :ok tuple" do
-    assert TrueFacts.parse_input("is_a_cat", "lucy") == {:ok, true}
+  setup do
+    pid = DataStore.start_link()
+    %{pid: pid}
+  end
+
+  test "parse_input/1 returns :ok if file exists" do
+    assert TrueFacts.parse_input("input.txt") == :ok
   end
 end

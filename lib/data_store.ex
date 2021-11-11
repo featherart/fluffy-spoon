@@ -1,6 +1,12 @@
 defmodule DataStore do
   @moduledoc """
-  `DataStore` maintains application state
+  `DataStore` maintains application state.
+  The store must be started up first.
+
+  ## Examples
+
+      iex> DataStore.start_link()
+      {:ok, #PID<0.141.0>}
   """
 
   @doc """
@@ -16,26 +22,25 @@ defmodule DataStore do
   @spec input(String.t(), String.t()) :: nil
   def input(question, fact) do
     Agent.update(__MODULE__, fn state ->
-      new_state = [{String.to_atom(question), fact} | state]
-      IO.inspect(new_state, label: "new state$$$$$$")
+      [{String.to_atom(question), fact} | state]
     end)
   end
 
   @doc """
   Returns the `fact(s)` associated with a `question`
-  Returns a list of values or an empty list if the question has not been input.
+  Returns a list of values or an empty list. 
   """
   @spec query(String.t()) :: List.t()
   def query(question) do
     Agent.get(__MODULE__, fn state ->
-      Keyword.get_values(state, String.to_atom(question))
+      Keyword.get_values(state, String.to_atom(question)) |> Enum.uniq()
     end)
   end
 
   @doc """
   Resets application state
   """
-  @spec reset(nil) :: nil
+  @spec reset() :: nil
   def reset() do
     Agent.update(__MODULE__, fn _state -> %{} end)
   end
